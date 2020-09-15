@@ -1,6 +1,3 @@
-
-
-
 export default function Total(selected)
 {
     return Object.keys(selected).reduce(

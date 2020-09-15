@@ -1,7 +1,6 @@
 import React from 'react';
-import Item from './Item';
 import Feature from './Feature';
-import slugify from 'slugify';
+
 
 export default class Features extends React.Component
 {
@@ -51,18 +50,20 @@ export default class Features extends React.Component
     render()
     {
         const features = this.state.features; 
-        const {USCurrencyFormat, updateFeature, selected} = this.props;
+        const {updateFeature, selected} = this.props;
         const html = Object.keys(features).map((feature, idx) => {
             const featureHash = feature + '-' + idx;
-            const options = features[feature].map(item => {
-              const itemHash = slugify(JSON.stringify(item));
-              
-              return <Item key={itemHash} itemHash={itemHash} feature={feature} item={item} selected={selected} updateFeature={updateFeature} USCurrencyFormat={USCurrencyFormat}/>;
-              
-            });
+            
       
-            return <Feature key={featureHash} featureHash={featureHash} feature={feature} options={options}/>
+            return <Feature key={idx} featureHash={featureHash} feature={feature} options={features[feature]} updateFeature={updateFeature} selected={selected}/>
           });
-          return html;
+          return (
+                  <>
+                    <form className="main__form">
+                      <h2>Customize your laptop</h2>
+                      {html}
+                    </form>
+                  </>
+                );
     }
 }
